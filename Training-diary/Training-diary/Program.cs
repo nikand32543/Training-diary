@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using Training_diary.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TrainingDiaryDb")));
 
 var app = builder.Build();
 
