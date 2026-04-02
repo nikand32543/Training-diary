@@ -1,0 +1,25 @@
+﻿@page "{id:int}"
+@model Training_diary.Pages.Training.DeleteModel
+@{
+    ViewData["Title"] = "Удалить тренировку";
+}
+
+<h1>Удалить тренировку</h1>
+
+<h3>Вы уверены, что хотите удалить эту тренировку?</h3>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <p><strong>Дата:</strong> @Model.Training.Date.ToString("dd.MM.yyyy HH:mm")</p>
+        <p><strong>Тип упражнения:</strong> @Model.Training.ExerciseType</p>
+        <p><strong>Длительность:</strong> @Model.Training.DurationMinutes минут</p>
+        <p><strong>Калории:</strong> @Model.Training.CaloriesBurned ккал</p>
+        <p><strong>Заметки:</strong> @Model.Training.Notes</p>
+    </div>
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="Training.Id" />
+    <button type="submit" class="btn btn-danger">Удалить</button>
+    <a asp-page="Index" class="btn btn-secondary">Отмена</a>
+</form>

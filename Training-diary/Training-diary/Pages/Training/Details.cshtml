@@ -1,0 +1,21 @@
+﻿@page "{id:int}"
+@model Training_diary.Pages.Training.DetailsModel
+@{
+    ViewData["Title"] = "Детали тренировки";
+}
+
+<h1>Информация о тренировке</h1>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <p><strong>Дата:</strong> @Model.Training.Date.ToString("dd.MM.yyyy HH:mm")</p>
+        <p><strong>Тип упражнения:</strong> @Model.Training.ExerciseType</p>
+        <p><strong>Длительность:</strong> @Model.Training.DurationMinutes минут</p>
+        <p><strong>Сожжено калорий:</strong> @Model.Training.CaloriesBurned ккал</p>
+        <p><strong>Заметки:</strong> @Model.Training.Notes</p>
+    </div>
+</div>
+
+<p>
+    <a asp-page="Index" class="btn btn-secondary">Назад к списку</a>
+</p>
