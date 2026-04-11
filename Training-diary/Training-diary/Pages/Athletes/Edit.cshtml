@@ -1,0 +1,48 @@
+﻿@page "{id:int}"
+@model Training_diary.Pages.Athletes.EditModel
+@{
+    ViewData["Title"] = "Редактировать атлета";
+}
+
+<h1>Редактировать атлета</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="Athlete.Id" />
+
+    <div class="mb-3">
+        <label class="form-label">Имя</label>
+        <input asp-for="Athlete.FirstName" class="form-control" />
+        <span asp-validation-for="Athlete.FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Фамилия</label>
+        <input asp-for="Athlete.LastName" class="form-control" />
+        <span asp-validation-for="Athlete.LastName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input asp-for="Athlete.Email" class="form-control" type="email" />
+        <span asp-validation-for="Athlete.Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Телефон</label>
+        <input asp-for="Athlete.Phone" class="form-control" />
+        <span asp-validation-for="Athlete.Phone" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Дата рождения</label>
+        <input asp-for="Athlete.BirthDate" type="date" class="form-control" />
+        <span asp-validation-for="Athlete.BirthDate" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a asp-page="Index" class="btn btn-secondary">Назад</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
