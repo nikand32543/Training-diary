@@ -9,5 +9,7 @@ namespace Training_diary.Model
         public string? Email { get; set; }
         public string? Phone { get; set; }
         public DateTime BirthDate { get; set; }
+
+        public ICollection<TrainingSession> TrainingSessions { get; set; } = new List<TrainingSession>();
     }
 }
