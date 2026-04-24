@@ -16,9 +16,9 @@ namespace Training_diary.Pages.Athletes
 
         public List<Athlete> Athletes { get; set; } = new();
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            Athletes = await _context.Athletes.ToListAsync();
+            Athletes = _context.Athletes.ToList();
         }
     }
 }

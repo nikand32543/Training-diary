@@ -10,8 +10,8 @@ namespace Training_diary.Model
         public int CaloriesBurned { get; set; }
         public string Notes { get; set; }
 
-        public int AthleteId { get; set; }
+        public int? AthleteId { get; set; }
 
-        public Athlete Athlete { get; set; } = null!;
+        public Athlete? Athlete { get; set; } = new Athlete();
     }
 }

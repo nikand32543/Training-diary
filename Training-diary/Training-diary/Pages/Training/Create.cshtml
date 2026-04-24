@@ -37,6 +37,14 @@
         <span asp-validation-for="Training.Notes" class="text-danger"></span>
     </div>
 
+    <div class="mb-3">
+        <label asp-for="Training.Athlete.Name" class="form-label">Атлет</label>
+        <select asp-for="Training.Athlete.Id" class="form-select" asp-items="Model.AthletesList">
+            <option value="">Выберите атлета</option>
+        </select>
+        <span asp-validation-for="Training.Athlete" class="text-danger"></span>
+    </div>
+
     <button type="submit" class="btn btn-primary">Сохранить</button>
     <a asp-page="Index" class="btn btn-secondary">Назад к списку</a>
 </form>

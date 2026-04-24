@@ -14,8 +14,7 @@ namespace Training_diary.Migrations
                 name: "AthleteId",
                 table: "TrainingSessions",
                 type: "int",
-                nullable: false,
-                defaultValue: 0);
+                nullable: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_TrainingSessions_AthleteId",
@@ -27,8 +26,7 @@ namespace Training_diary.Migrations
                 table: "TrainingSessions",
                 column: "AthleteId",
                 principalTable: "Athletes",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />

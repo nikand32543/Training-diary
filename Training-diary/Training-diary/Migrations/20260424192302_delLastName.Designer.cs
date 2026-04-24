@@ -12,8 +12,8 @@ using Training_diary.Data;
 namespace Training_diary.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260411101820_AddAthletesTable")]
-    partial class AddAthletesTable
+    [Migration("20260424192302_delLastName")]
+    partial class delLastName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,14 +39,6 @@ namespace Training_diary.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -66,7 +58,7 @@ namespace Training_diary.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AthleteId")
+                    b.Property<int?>("AthleteId")
                         .HasColumnType("int");
 
                     b.Property<int>("CaloriesBurned")
@@ -100,9 +92,7 @@ namespace Training_diary.Migrations
                 {
                     b.HasOne("Training_diary.Model.Athlete", "Athlete")
                         .WithMany("TrainingSessions")
-                        .HasForeignKey("AthleteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AthleteId");
 
                     b.Navigation("Athlete");
                 });

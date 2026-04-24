@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Training_diary.Data;
 using Training_diary.Model;
 
@@ -15,11 +16,11 @@ namespace Training_diary.Pages.Athletes
         }
 
         [BindProperty]
-        public Athlete Athlete { get; set; } = null!;
+        public Athlete Athlete { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int id)
+        public IActionResult OnGet(int id)
         {
-            Athlete = await _context.Athletes.FindAsync(id);
+            Athlete = _context.Athletes.Find(id);
 
             if (Athlete == null)
                 return NotFound();
@@ -27,14 +28,14 @@ namespace Training_diary.Pages.Athletes
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
-            var athlete = await _context.Athletes.FindAsync(Athlete.Id);
+            var athlete = _context.Athletes.Find(Athlete.Id);
 
             if (athlete != null)
             {
                 _context.Athletes.Remove(athlete);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
 
             return RedirectToPage("Index");

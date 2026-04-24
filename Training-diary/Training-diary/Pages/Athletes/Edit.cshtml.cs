@@ -15,11 +15,10 @@ namespace Training_diary.Pages.Athletes
         }
 
         [BindProperty]
-        public Athlete Athlete { get; set; } = null!;
-
-        public async Task<IActionResult> OnGetAsync(int id)
+        public Athlete Athlete { get; set; }
+        public IActionResult OnGet(int id)
         {
-            Athlete = await _context.Athletes.FindAsync(id);
+            Athlete = _context.Athletes.FirstOrDefault(b => b.Id == id);
 
             if (Athlete == null)
                 return NotFound();
@@ -27,13 +26,13 @@ namespace Training_diary.Pages.Athletes
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
                 return Page();
 
             _context.Athletes.Update(Athlete);
-            await _context.SaveChangesAsync();
+            _context.SaveChangesAsync();
 
             return RedirectToPage("Index");
         }
