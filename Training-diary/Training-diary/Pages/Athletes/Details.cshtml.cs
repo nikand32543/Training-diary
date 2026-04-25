@@ -16,9 +16,9 @@ namespace Training_diary.Pages.Athletes
 
         public Athlete Athlete { get; set; } = null!;
 
-        public async Task<IActionResult> OnGetAsync(int id)
+        public IActionResult OnGet(int id)
         {
-            Athlete = await _context.Athletes.FindAsync(id);
+            Athlete = _context.Athletes.FirstOrDefault(a => a.Id == id);
 
             if (Athlete == null)
                 return NotFound();

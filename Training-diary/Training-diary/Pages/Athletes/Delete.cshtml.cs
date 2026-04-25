@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using Training_diary.Data;
 using Training_diary.Model;
 
@@ -16,7 +15,7 @@ namespace Training_diary.Pages.Athletes
         }
 
         [BindProperty]
-        public Athlete Athlete { get; set; }
+        public Athlete Athlete { get; set; } = null!;
 
         public IActionResult OnGet(int id)
         {
@@ -30,8 +29,10 @@ namespace Training_diary.Pages.Athletes
 
         public IActionResult OnPost()
         {
-            var athlete = _context.Athletes.Find(Athlete.Id);
+            var trainings = _context.TrainingSessions.Where(t => t.AthleteId == Athlete.Id);
+            _context.TrainingSessions.RemoveRange(trainings);
 
+            var athlete = _context.Athletes.Find(Athlete.Id);
             if (athlete != null)
             {
                 _context.Athletes.Remove(athlete);

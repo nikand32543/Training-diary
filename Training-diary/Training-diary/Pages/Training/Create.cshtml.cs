@@ -16,28 +16,25 @@ namespace Training_diary.Pages.Training
         }
 
         [BindProperty]
-        public TrainingSession Training { get; set; } = new TrainingSession();
+        public TrainingSession Training { get; set; } = new();
 
         public SelectList AthletesList { get; set; }
 
         public void OnGet()
         {
-            var athlets = _context.Athletes.ToList();
-            AthletesList = new SelectList(athlets, "Id", "Name");
+            var athletes = _context.Athletes.ToList();
+            AthletesList = new SelectList(athletes, "Id", "Name");
         }
 
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
             {
-                var athlets = _context.Athletes.ToList();
-                AthletesList = new SelectList(athlets, "Id", "Name");
+                var athletes = _context.Athletes.ToList();
+                AthletesList = new SelectList(athletes, "Id", "Name");
                 return Page();
             }
-            if (Training.Athlete != null && Training.Athlete.Id > 0)
-            {
-                Training.Athlete = _context.Athletes.Find(Training.Athlete.Id);
-            }
+
             _context.TrainingSessions.Add(Training);
             _context.SaveChanges();
 

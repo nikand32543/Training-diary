@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Training_diary.Data;
 using Training_diary.Model;
 
@@ -18,7 +19,10 @@ namespace Training_diary.Pages.Training
 
         public IActionResult OnGet(int id)
         {
-            Training = _context.TrainingSessions.FirstOrDefault(t => t.Id == id);
+            Training = _context.TrainingSessions
+                .Where(t => t.Id == id)
+                .Include(t => t.Athlete)
+                .FirstOrDefault();
 
             if (Training == null)
                 return NotFound();

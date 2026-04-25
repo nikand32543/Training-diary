@@ -1,20 +1,40 @@
 ﻿@page "{id:int}"
 @model Training_diary.Pages.Athletes.DetailsModel
 @{
-    ViewData["Title"] = "Детали атлета";
+    ViewData["Title"] = "Информация об атлете";
 }
 
-<h1>Информация об атлете</h1>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Информация об атлете</h4>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Имя атлета</dt>
+                        <dd class="col-sm-9">@Model.Athlete.Name</dd>
 
-<div class="card mb-3">
-    <div class="card-body">
-        <p><strong>Имя:</strong> @Model.Athlete.Name</p>
-        <p><strong>Email:</strong> @Model.Athlete.Email</p>
-        <p><strong>Телефон:</strong> @Model.Athlete.Phone</p>
-        <p><strong>Дата рождения:</strong> @Model.Athlete.BirthDate.ToShortDateString()</p>
+                        <dt class="col-sm-3">Email</dt>
+                        <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Athlete.Email) ? "—" : Model.Athlete.Email)</dd>
+
+                        <dt class="col-sm-3">Телефон</dt>
+                        <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Athlete.Phone) ? "—" : Model.Athlete.Phone)</dd>
+
+                        <dt class="col-sm-3">Дата рождения</dt>
+                        <dd class="col-sm-9">@Model.Athlete.BirthDate.ToShortDateString()</dd>
+                    </dl>
+
+                    <div class="d-flex justify-content-between mt-3">
+                        <a asp-page="Index" class="btn btn-secondary">Назад к списку</a>
+                        <div>
+                            <a asp-page="Edit" asp-route-id="@Model.Athlete.Id" class="btn btn-primary">Редактировать</a>
+                            <a asp-page="Delete" asp-route-id="@Model.Athlete.Id" class="btn btn-danger">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<p>
-    <a asp-page="Index" class="btn btn-secondary">Назад к списку</a>
-</p>

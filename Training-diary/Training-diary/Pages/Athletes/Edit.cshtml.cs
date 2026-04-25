@@ -15,10 +15,11 @@ namespace Training_diary.Pages.Athletes
         }
 
         [BindProperty]
-        public Athlete Athlete { get; set; }
+        public Athlete Athlete { get; set; } = null!;
+
         public IActionResult OnGet(int id)
         {
-            Athlete = _context.Athletes.FirstOrDefault(b => b.Id == id);
+            Athlete = _context.Athletes.FirstOrDefault(a => a.Id == id);
 
             if (Athlete == null)
                 return NotFound();
@@ -32,7 +33,7 @@ namespace Training_diary.Pages.Athletes
                 return Page();
 
             _context.Athletes.Update(Athlete);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return RedirectToPage("Index");
         }

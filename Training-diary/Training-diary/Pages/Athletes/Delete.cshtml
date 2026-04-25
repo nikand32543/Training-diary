@@ -4,21 +4,42 @@
     ViewData["Title"] = "Удалить атлета";
 }
 
-<h1>Удалить атлета</h1>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">Удалить атлета</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning mb-4">
+                        Вы действительно хотите удалить этого атлета?
+                    </div>
 
-<h3>Вы уверены, что хотите удалить этого атлета?</h3>
+                    <dl class="row">
+                        <dt class="col-sm-3">Имя атлета</dt>
+                        <dd class="col-sm-9">@Model.Athlete.Name</dd>
 
-<div class="card mb-3">
-    <div class="card-body">
-        <p><strong>Имя:</strong> @Model.Athlete.Name</p>
-        <p><strong>Email:</strong> @Model.Athlete.Email</p>
-        <p><strong>Телефон:</strong> @Model.Athlete.Phone</p>
-        <p><strong>Дата рождения:</strong> @Model.Athlete.BirthDate.ToShortDateString()</p>
+                        <dt class="col-sm-3">Email</dt>
+                        <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Athlete.Email) ? "—" : Model.Athlete.Email)</dd>
+
+                        <dt class="col-sm-3">Телефон</dt>
+                        <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Athlete.Phone) ? "—" : Model.Athlete.Phone)</dd>
+
+                        <dt class="col-sm-3">Дата рождения</dt>
+                        <dd class="col-sm-9">@Model.Athlete.BirthDate.ToShortDateString()</dd>
+                    </dl>
+
+                    <form method="post">
+                        <input type="hidden" asp-for="Athlete.Id" />
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-page="Index" class="btn btn-secondary">Назад</a>
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<form method="post">
-    <input type="hidden" asp-for="Athlete.Id" />
-    <button type="submit" class="btn btn-danger">Удалить</button>
-    <a asp-page="Index" class="btn btn-secondary">Отмена</a>
-</form>

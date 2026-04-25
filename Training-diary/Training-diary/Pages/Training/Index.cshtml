@@ -4,45 +4,57 @@
     ViewData["Title"] = "Список тренировок";
 }
 
-<h1>Список тренировок</h1>
-
-<p>
-    <a asp-page="Create" class="btn btn-primary">Добавить новую тренировку</a>
-</p>
-
-<table class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>Дата</th>
-            <th>Тип упражнения</th>
-            <th>Длительность (мин)</th>
-            <th>Калории</th>
-            <th>Заметки</th>
-            <th>Действия</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var training in Model.Trainings)
-        {
-            <tr>
-                <td>@training.Date.ToString("dd.MM.yyyy HH:mm")</td>
-                <td>@training.ExerciseType</td>
-                <td>@training.DurationMinutes</td>
-                <td>@training.CaloriesBurned</td>
-                <td>@(training.Notes.Length > 50 ? training.Notes.Substring(0, 50) + "..." : training.Notes)</td>
-                <td>
-                    <a asp-page="Details" asp-route-id="@training.Id" class="btn btn-sm btn-info">Открыть</a>
-                    <a asp-page="Edit" asp-route-id="@training.Id" class="btn btn-sm btn-warning">Изменить</a>
-                    <a asp-page="Delete" asp-route-id="@training.Id" class="btn btn-sm btn-danger">Удалить</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-11">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Список тренировок</h4>
+                    <a asp-page="Create" class="btn btn-light btn-sm">Добавить тренировку</a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Дата</th>
+                                    <th>Тип упражнения</th>
+                                    <th>Длительность (мин)</th>
+                                    <th>Калории</th>
+                                    <th>Заметки</th>
+                                    <th>Атлет</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var training in Model.Trainings)
+                                {
+                                    <tr>
+                                        <td>@training.Date.ToString("dd.MM.yyyy HH:mm")</td
+                                        <td>@training.ExerciseType</td
+                                        <td>@training.DurationMinutes</td
+                                        <td>@training.CaloriesBurned</td
+                                        <td>@(training.Notes?.Length > 30 ? training.Notes.Substring(0, 30) + "..." : training.Notes)</td
+                                        <td>@(training.Athlete?.Name ?? "—")</td
+                                        <td>
+                                            <a asp-page="Details" asp-route-id="@training.Id" class="btn btn-sm btn-outline-primary">Открыть</a>
+                                            <a asp-page="Edit" asp-route-id="@training.Id" class="btn btn-sm btn-outline-secondary">Изменить</a>
+                                            <a asp-page="Delete" asp-route-id="@training.Id" class="btn btn-sm btn-outline-danger">Удалить</a>
+                                         </td
+                                     </tr
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @if (!Model.Trainings.Any())
 {
-    <div class="alert alert-info">
+    <div class="alert alert-info text-center mt-3">
         Нет добавленных тренировок. <a asp-page="Create">Добавьте первую тренировку</a>
     </div>
 }

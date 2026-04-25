@@ -4,22 +4,48 @@
     ViewData["Title"] = "Удалить тренировку";
 }
 
-<h1>Удалить тренировку</h1>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">Удалить тренировку</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning mb-4">
+                        Вы действительно хотите удалить эту тренировку?
+                    </div>
 
-<h3>Вы уверены, что хотите удалить эту тренировку?</h3>
+                    <dl class="row">
+                        <dt class="col-sm-3">Дата тренировки</dt>
+                        <dd class="col-sm-9">@Model.Training.Date.ToString("dd.MM.yyyy HH:mm")</dd>
 
-<div class="card mb-3">
-    <div class="card-body">
-        <p><strong>Дата:</strong> @Model.Training.Date.ToString("dd.MM.yyyy HH:mm")</p>
-        <p><strong>Тип упражнения:</strong> @Model.Training.ExerciseType</p>
-        <p><strong>Длительность:</strong> @Model.Training.DurationMinutes минут</p>
-        <p><strong>Калории:</strong> @Model.Training.CaloriesBurned ккал</p>
-        <p><strong>Заметки:</strong> @Model.Training.Notes</p>
+                        <dt class="col-sm-3">Тип упражнения</dt>
+                        <dd class="col-sm-9">@Model.Training.ExerciseType</dd>
+
+                        <dt class="col-sm-3">Длительность</dt>
+                        <dd class="col-sm-9">@Model.Training.DurationMinutes минут</dd>
+
+                        <dt class="col-sm-3">Сожжено калорий</dt>
+                        <dd class="col-sm-9">@Model.Training.CaloriesBurned ккал</dd>
+
+                        <dt class="col-sm-3">Заметки</dt>
+                        <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Training.Notes) ? "—" : Model.Training.Notes)</dd>
+
+                        <dt class="col-sm-3">Атлет</dt>
+                        <dd class="col-sm-9">@(Model.Training.Athlete?.Name ?? "—")</dd>
+                    </dl>
+
+                    <form method="post">
+                        <input type="hidden" asp-for="Training.Id" />
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-page="Index" class="btn btn-secondary">Назад</a>
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<form method="post">
-    <input type="hidden" asp-for="Training.Id" />
-    <button type="submit" class="btn btn-danger">Удалить</button>
-    <a asp-page="Index" class="btn btn-secondary">Отмена</a>
-</form>
