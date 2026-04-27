@@ -30,18 +30,18 @@
                                 @foreach (var training in Model.Trainings)
                                 {
                                     <tr>
-                                        <td>@training.Date.ToString("dd.MM.yyyy HH:mm")</td
-                                        <td>@training.ExerciseType</td
-                                        <td>@training.DurationMinutes</td
-                                        <td>@training.CaloriesBurned</td
-                                        <td>@(training.Notes?.Length > 30 ? training.Notes.Substring(0, 30) + "..." : training.Notes)</td
-                                        <td>@(training.Athlete?.Name ?? "—")</td
+                                        <td>@training.Date.ToString("dd.MM.yyyy HH:mm")</td>
+                                        <td>@training.ExerciseType</td>
+                                        <td>@training.DurationMinutes</td>
+                                        <td>@training.CaloriesBurned</td>
+                                        <td>@(training.Notes?.Length > 30 ? training.Notes.Substring(0, 30) + "..." : training.Notes)</td>
+                                        <td>@(training.Athlete?.Name ?? "—")</td>
                                         <td>
                                             <a asp-page="Details" asp-route-id="@training.Id" class="btn btn-sm btn-outline-primary">Открыть</a>
                                             <a asp-page="Edit" asp-route-id="@training.Id" class="btn btn-sm btn-outline-secondary">Изменить</a>
                                             <a asp-page="Delete" asp-route-id="@training.Id" class="btn btn-sm btn-outline-danger">Удалить</a>
-                                         </td
-                                     </tr
+                                        </td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>

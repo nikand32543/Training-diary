@@ -20,9 +20,8 @@ namespace Training_diary.Pages.Training
         public IActionResult OnGet(int id)
         {
             Training = _context.TrainingSessions
-                .Where(t => t.Id == id)
                 .Include(t => t.Athlete)
-                .FirstOrDefault();
+                .FirstOrDefault(t => t.Id == id);
 
             if (Training == null)
                 return NotFound();

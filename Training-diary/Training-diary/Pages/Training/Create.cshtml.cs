@@ -18,12 +18,12 @@ namespace Training_diary.Pages.Training
         [BindProperty]
         public TrainingSession Training { get; set; } = new();
 
-        public SelectList AthletesList { get; set; }
+        public SelectList AthletesList { get; set; }   
 
         public void OnGet()
         {
             var athletes = _context.Athletes.ToList();
-            AthletesList = new SelectList(athletes, "Id", "Name");
+            AthletesList = new SelectList(athletes, "Id", "Name");   
         }
 
         public IActionResult OnPost()
@@ -35,6 +35,7 @@ namespace Training_diary.Pages.Training
                 return Page();
             }
 
+            var Athlete = _context.Athletes.FirstOrDefault(t => t.Id == Training.AthleteId);
             _context.TrainingSessions.Add(Training);
             _context.SaveChanges();
 

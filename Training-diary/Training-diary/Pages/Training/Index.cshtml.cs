@@ -14,7 +14,7 @@ namespace Training_diary.Pages.Training
             _context = context;
         }
 
-        public List<TrainingSession> Trainings { get; set; } = new();
+        public List<TrainingSession> Trainings { get; set; } = new List<TrainingSession>();
 
         public void OnGet()
         {

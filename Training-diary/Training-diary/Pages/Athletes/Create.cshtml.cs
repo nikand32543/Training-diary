@@ -17,15 +17,18 @@ namespace Training_diary.Pages.Athletes
         [BindProperty]
         public Athlete Athlete { get; set; } = new();
 
-        public void OnGet() { }
+        public IActionResult OnGet()
+        {
+            return Page();
+        }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
 
             _context.Athletes.Add(Athlete);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("Index");
         }
