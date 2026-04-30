@@ -36,8 +36,14 @@ namespace Training_diary.Pages.Training
             }
 
             var Athlete = _context.Athletes.FirstOrDefault(t => t.Id == Training.AthleteId);
-            _context.TrainingSessions.Add(Training);
-            _context.SaveChanges();
+            if (Athlete != null)
+            {
+                Training.Athlete = Athlete;
+                _context.TrainingSessions.Add(Training);
+                _context.SaveChanges();
+            }
+            //_context.TrainingSessions.Add(Training);
+            //_context.SaveChanges();
 
             return RedirectToPage("Index");
         }
