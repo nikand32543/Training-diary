@@ -14,7 +14,10 @@
                 </div>
                 <div class="card-body">
                     <form method="post">
+                        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
                         <input type="hidden" asp-for="Training.Id" />
+                        <input type="hidden" asp-for="Training.Name" />
 
                         <div class="mb-3">
                             <label asp-for="Training.Date" class="form-label">Дата тренировки</label>
@@ -43,10 +46,11 @@
                         <div class="mb-3">
                             <label asp-for="Training.Notes" class="form-label">Заметки</label>
                             <textarea asp-for="Training.Notes" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="Training.Notes" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Атлет</label>
+                            <label asp-for="Training.AthleteId" class="form-label">Атлет</label>
                             <select asp-for="Training.AthleteId" class="form-select" asp-items="Model.AthleteList">
                                 <option value="">-- Выберите атлета --</option>
                             </select>
@@ -55,7 +59,7 @@
 
                         <div class="d-flex justify-content-between">
                             <a asp-page="Index" class="btn btn-secondary">Назад</a>
-                            <button type="submit" class="btn btn-success">Сохранить</button>
+                            <button type="submit" class="btn btn-success">Сохранить изменения</button>
                         </div>
                     </form>
                 </div>

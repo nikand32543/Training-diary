@@ -21,31 +21,54 @@ namespace Training_diary.Pages.Training
 
         public SelectList AthleteList { get; set; } = null!;
 
-        public IActionResult OnGet(int id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            Training = _context.TrainingSessions
+            var training = await _context.TrainingSessions
                 .Include(t => t.Athlete)
-                .FirstOrDefault(t => t.Id == id);
+                .FirstOrDefaultAsync(t => t.Id == id);
 
-            if (Training == null)
+            if (training == null)
+            {
                 return NotFound();
+            }
 
+            Training = training;
             LoadSelectLists();
 
             return Page();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            Training.Name = Training.ExerciseType ?? "Тренировка";
+
+            ModelState.ClearValidationState(nameof(Training));
+
+            if (!TryValidateModel(Training, nameof(Training)))
             {
                 LoadSelectLists();
                 return Page();
             }
-            Training.Athlete = null;
 
-            _context.TrainingSessions.Update(Training);
-            _context.SaveChanges();
+            Training.Athlete = null!;
+
+            _context.Attach(Training).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TrainingSessionExists(Training.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return RedirectToPage("Index");
         }
@@ -53,7 +76,12 @@ namespace Training_diary.Pages.Training
         private void LoadSelectLists()
         {
             var athletes = _context.Athletes.ToList();
-            AthleteList = new SelectList(athletes, "Id", "Name", Training.AthleteId);
+            AthleteList = new SelectList(athletes, "Id", "Name");
+        }
+
+        private bool TrainingSessionExists(int id)
+        {
+            return _context.TrainingSessions.Any(e => e.Id == id);
         }
     }
 }

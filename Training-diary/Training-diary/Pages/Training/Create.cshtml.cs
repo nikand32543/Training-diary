@@ -18,34 +18,34 @@ namespace Training_diary.Pages.Training
         [BindProperty]
         public TrainingSession Training { get; set; } = new();
 
-        public SelectList AthletesList { get; set; }   
+        public SelectList AthletesList { get; set; }
 
         public void OnGet()
         {
-            var athletes = _context.Athletes.ToList();
-            AthletesList = new SelectList(athletes, "Id", "Name");   
+            LoadAthletes();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync() 
         {
-            if (!ModelState.IsValid)
+            Training.Name = Training.ExerciseType ?? "Без названия";
+
+            ModelState.ClearValidationState(nameof(Training));
+            if (!TryValidateModel(Training, nameof(Training)))
             {
-                var athletes = _context.Athletes.ToList();
-                AthletesList = new SelectList(athletes, "Id", "Name");
+                LoadAthletes();
                 return Page();
             }
 
-            var Athlete = _context.Athletes.FirstOrDefault(t => t.Id == Training.AthleteId);
-            if (Athlete != null)
-            {
-                Training.Athlete = Athlete;
-                _context.TrainingSessions.Add(Training);
-                _context.SaveChanges();
-            }
-            //_context.TrainingSessions.Add(Training);
-            //_context.SaveChanges();
+            _context.TrainingSessions.Add(Training);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("Index");
+        }
+
+        private void LoadAthletes()
+        {
+            var athletes = _context.Athletes.ToList();
+            AthletesList = new SelectList(athletes, "Id", "Name");
         }
     }
 }

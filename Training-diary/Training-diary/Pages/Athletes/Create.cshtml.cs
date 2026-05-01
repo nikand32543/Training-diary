@@ -15,7 +15,7 @@ namespace Training_diary.Pages.Athletes
         }
 
         [BindProperty]
-        public Athlete Athlete { get; set; } = new();
+        public Athlete? Athlete { get; set; } = new();
 
         public IActionResult OnGet()
         {
