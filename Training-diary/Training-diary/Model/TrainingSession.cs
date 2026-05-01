@@ -12,6 +12,6 @@ namespace Training_diary.Model
 
         public int? AthleteId { get; set; }
 
-        public Athlete? Athlete { get; set; } = new Athlete();
+        public Athlete? Athlete { get; set; } //= new Athlete();
     }
 }

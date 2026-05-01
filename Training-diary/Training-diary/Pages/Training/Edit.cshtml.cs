@@ -42,6 +42,7 @@ namespace Training_diary.Pages.Training
                 LoadSelectLists();
                 return Page();
             }
+            Training.Athlete = null;
 
             _context.TrainingSessions.Update(Training);
             _context.SaveChanges();
