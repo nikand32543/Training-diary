@@ -25,4 +25,8 @@
     <Folder Include="UnitTests\Pages\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Training-diary\Training-diary.csproj" />
+  </ItemGroup>
+
 </Project>
