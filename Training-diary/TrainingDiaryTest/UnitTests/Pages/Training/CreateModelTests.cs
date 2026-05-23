@@ -10,6 +10,16 @@ using Xunit;
 
 namespace TrainingDiaryTest.UnitTests.Pages.Training
 {
+    public class TestCreateModel : CreateModel
+    {
+        public TestCreateModel(ApplicationDbContext context) : base(context) { }
+
+        public override bool TryValidateModel(object model, string prefix)
+        {
+            return false; // Имитируем, что валидация не прошла
+        }
+    }
+
     public class CreateModelTests
     {
         private ApplicationDbContext GetDbContext()
@@ -26,12 +36,11 @@ namespace TrainingDiaryTest.UnitTests.Pages.Training
         {
             // Arrange
             var context = GetDbContext();
-            var pageModel = new CreateModel(context);
+            var pageModel = new TestCreateModel(context);
 
-            // Просто вручную добавляем ошибку в состояние модели
-            pageModel.ModelState.AddModelError("ExerciseType", "Required");
+            pageModel.Training = new Training_diary.Model.TrainingSession();
 
-            // Act
+            // Act 
             var result = await pageModel.OnPostAsync();
 
             // Assert
