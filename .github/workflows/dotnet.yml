@@ -23,6 +23,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore Training-diary/Training-diary/Training-diary.csproj
     - name: Build
-      run: dotnet build Training-diary/Training-diary/Training-diary.csproj --no-restore
+      run: dotnet build --no-restore --configuration Release
     - name: Test
-      run: dotnet test Training-diary/TrainingDiaryTest/TrainingDiaryTest.csproj --no-build --verbosity normal
+      run: dotnet test --no-build --configuration Release --verbosity normal
