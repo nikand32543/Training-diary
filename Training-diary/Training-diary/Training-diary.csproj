@@ -22,8 +22,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\Account\Users\" />
-  </ItemGroup>
-
 </Project>

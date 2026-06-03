@@ -40,7 +40,8 @@ namespace Training_diary.Pages.Account
                 {
                     Email = Input.Email,
                     Password = Input.Password,
-                    Role = isFirstUser ? "Admin" : "User"
+                    Role = isFirstUser ? "Admin" : "User",
+                    Name = Input.Email
                 };
 
                 _context.AuthUsers.Add(user);
