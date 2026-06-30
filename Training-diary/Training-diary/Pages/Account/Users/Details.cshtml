@@ -1,0 +1,52 @@
+﻿@page
+@model Training_diary.Pages.Account.Users.DetailsModel
+@{
+    ViewData["Title"] = "Детали пользователя";
+}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm p-4">
+            <div class="text-center mb-4">
+                <div class="d-inline-flex align-items-center justify-content-center bg-secondary text-white rounded-circle shadow-sm"
+                     style="width: 100px; height: 100px; font-size: 48px;">
+                    <i class="bi bi-person"></i>
+                </div>
+                <h3 class="mt-3">Профиль пользователя</h3>
+            </div>
+
+            <hr />
+
+            <dl class="row mb-4">
+                <dt class="col-sm-4 text-muted">ID записи:</dt>
+                <dd class="col-sm-8 fw-bold">@Model.User.Id</dd>
+
+                <dt class="col-sm-4 text-muted">Email (Логин):</dt>
+                <dd class="col-sm-8">
+                    <i class="bi bi-envelope me-1 text-muted"></i> @Model.User.Email
+                </dd>
+
+                <dt class="col-sm-4 text-muted">Роль в системе:</dt>
+                <dd class="col-sm-8">
+                    @if (Model.User.Role == "Admin")
+                    {
+                        <span class="badge bg-danger">Admin</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">User</span>
+                    }
+                </dd>
+            </dl>
+
+            <div class="d-flex gap-2 justify-content-center">
+                <a asp-page="Edit" asp-route-id="@Model.User.Id" class="btn btn-warning text-white shadow-sm">
+                    <i class="bi bi-pencil-square me-1"></i> Изменить
+                </a>
+                <a asp-page="Index" class="btn btn-secondary shadow-sm">
+                    <i class="bi bi-arrow-left me-1"></i> Назад
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

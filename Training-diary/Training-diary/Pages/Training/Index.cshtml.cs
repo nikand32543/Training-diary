@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Training_diary.Data;
@@ -15,11 +14,12 @@ namespace Training_diary.Pages.Training
             _context = context;
         }
 
-        public List<TrainingSession> Trainings { get; set; } = new();
+        public List<TrainingSession> Trainings { get; set; } = new List<TrainingSession>();
 
         public void OnGet()
         {
             Trainings = _context.TrainingSessions
+                .Include(t => t.Athlete)
                 .OrderByDescending(t => t.Date)
                 .ToList();
         }

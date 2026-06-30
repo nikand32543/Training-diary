@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Training_diary.Data;
 using Training_diary.Model;
 
@@ -15,22 +16,36 @@ namespace Training_diary.Pages.Training
         }
 
         [BindProperty]
-        public TrainingSession Training { get; set; } = new TrainingSession();
+        public TrainingSession Training { get; set; } = new();
 
-        public IActionResult OnGet()
+        public SelectList AthletesList { get; set; }
+
+        public void OnGet()
         {
-            return Page();
+            LoadAthletes();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync() 
         {
-            if (!ModelState.IsValid)
+            Training.Name = Training.ExerciseType ?? "Без названия";
+
+            ModelState.ClearValidationState(nameof(Training));
+            if (!TryValidateModel(Training, nameof(Training)))
+            {
+                LoadAthletes();
                 return Page();
+            }
 
             _context.TrainingSessions.Add(Training);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("Index");
+        }
+
+        private void LoadAthletes()
+        {
+            var athletes = _context.Athletes.ToList();
+            AthletesList = new SelectList(athletes, "Id", "Name");
         }
     }
 }

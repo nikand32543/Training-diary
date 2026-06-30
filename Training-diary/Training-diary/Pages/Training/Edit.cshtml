@@ -1,47 +1,72 @@
 ﻿@page "{id:int}"
+@using Training_diary.Model
 @model Training_diary.Pages.Training.EditModel
 @{
     ViewData["Title"] = "Редактировать тренировку";
 }
 
-<h1>Редактировать тренировку</h1>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Редактировать тренировку</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
-<form method="post">
-    <input type="hidden" asp-for="Training.Id" />
+                        <input type="hidden" asp-for="Training.Id" />
+                        <input type="hidden" asp-for="Training.Name" />
 
-    <div class="mb-3">
-        <label class="form-label">Дата тренировки</label>
-        <input asp-for="Training.Date" type="datetime-local" class="form-control" />
-        <span asp-validation-for="Training.Date" class="text-danger"></span>
+                        <div class="mb-3">
+                            <label asp-for="Training.Date" class="form-label">Дата тренировки</label>
+                            <input asp-for="Training.Date" type="datetime-local" class="form-control" />
+                            <span asp-validation-for="Training.Date" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Training.ExerciseType" class="form-label">Тип упражнения</label>
+                            <input asp-for="Training.ExerciseType" class="form-control" />
+                            <span asp-validation-for="Training.ExerciseType" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Training.DurationMinutes" class="form-label">Длительность (минуты)</label>
+                            <input asp-for="Training.DurationMinutes" type="number" class="form-control" />
+                            <span asp-validation-for="Training.DurationMinutes" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Training.CaloriesBurned" class="form-label">Сожжено калорий</label>
+                            <input asp-for="Training.CaloriesBurned" type="number" class="form-control" />
+                            <span asp-validation-for="Training.CaloriesBurned" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Training.Notes" class="form-label">Заметки</label>
+                            <textarea asp-for="Training.Notes" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="Training.Notes" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Training.AthleteId" class="form-label">Атлет</label>
+                            <select asp-for="Training.AthleteId" class="form-select" asp-items="Model.AthleteList">
+                                <option value="">-- Выберите атлета --</option>
+                            </select>
+                            <span asp-validation-for="Training.AthleteId" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-page="Index" class="btn btn-secondary">Назад</a>
+                            <button type="submit" class="btn btn-success">Сохранить изменения</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="mb-3">
-        <label class="form-label">Тип упражнения</label>
-        <input asp-for="Training.ExerciseType" class="form-control" />
-        <span asp-validation-for="Training.ExerciseType" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Длительность (минуты)</label>
-        <input asp-for="Training.DurationMinutes" class="form-control" type="number" />
-        <span asp-validation-for="Training.DurationMinutes" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Сожжено калорий</label>
-        <input asp-for="Training.CaloriesBurned" class="form-control" type="number" />
-        <span asp-validation-for="Training.CaloriesBurned" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Заметки</label>
-        <textarea asp-for="Training.Notes" class="form-control" rows="3"></textarea>
-        <span asp-validation-for="Training.Notes" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Сохранить</button>
-    <a asp-page="Index" class="btn btn-secondary">Назад к списку</a>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

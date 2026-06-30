@@ -34,25 +34,49 @@ namespace Training_diary.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Athletes");
+                });
+
+            modelBuilder.Entity("Training_diary.Model.AuthApp.AuthUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuthUsers");
                 });
 
             modelBuilder.Entity("Training_diary.Model.TrainingSession", b =>
@@ -62,6 +86,9 @@ namespace Training_diary.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AthleteId")
+                        .HasColumnType("int");
 
                     b.Property<int>("CaloriesBurned")
                         .HasColumnType("int");
@@ -77,6 +104,7 @@ namespace Training_diary.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Notes")
@@ -85,7 +113,23 @@ namespace Training_diary.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AthleteId");
+
                     b.ToTable("TrainingSessions");
+                });
+
+            modelBuilder.Entity("Training_diary.Model.TrainingSession", b =>
+                {
+                    b.HasOne("Training_diary.Model.Athlete", "Athlete")
+                        .WithMany("TrainingSessions")
+                        .HasForeignKey("AthleteId");
+
+                    b.Navigation("Athlete");
+                });
+
+            modelBuilder.Entity("Training_diary.Model.Athlete", b =>
+                {
+                    b.Navigation("TrainingSessions");
                 });
 #pragma warning restore 612, 618
         }
